@@ -1,0 +1,10 @@
+A_scale: 1
+N_test: 10
+N_train: 100
+P_split: 10
+c_max: 10
+c_min: -10
+n_orig: 20
+seed: 42
+solve: true
+split_factor: 100

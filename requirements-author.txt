@@ -1,0 +1,18 @@
+# Transcribed from external/l2ws/pyproject.toml at 14d59d03590ca9f34e8d6daa675002d8b4f1a769.
+# Not upgraded. Not combined with the eval environment.
+# Python requirement: >=3.10,<3.11
+numpy>=1.21,<2
+scipy>=1.10,<1.13
+cvxpy>=1.3.0
+matplotlib
+jax==0.4.20
+jaxlib==0.4.20
+jaxopt==0.6
+optax==0.1.5
+hydra-core
+osqp
+scs
+pandas
+emnist
+imageio
+# trajax is pinned by the upstream pyproject to git commit c94a637c5a397b3d4100153f25b4b165507b5b20

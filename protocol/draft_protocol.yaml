@@ -1,0 +1,86 @@
+# DRAFT — not frozen, test partition sealed
+# Recomputed from preflight run 20261023T180721-813ad8cb on 2026-10-26.
+# This file is not protocol/frozen_protocol.yaml and must not be treated as one.
+
+status: draft
+holdout_release_approval: false
+title: "When Do Learned Warm Starts Actually Pay Off? An Independent Benchmark Study of Learning-Augmented Quadratic Programming"
+scientific_question_unchanged: true
+
+primary_endpoint: "median across independent groups of the within-group median of paired streaming latency (ms): T_validation_selected_classical - T_learned. Positive favors the learned initializer."
+streaming_definition: "parameter update + features + lookup or inference + state insertion + solve wall + online verification. Setup is excluded from this estimand and reported separately. Step 0 of each sequence is an initial transient and is excluded from the streaming median."
+classical_candidate_pool:
+  - C1_CACHED_COLD
+  - C2_CACHED_AUTO_PREVIOUS
+  - C3_CACHED_EXPLICIT_PREVIOUS
+classical_selection: "On validation groups only, choose the single policy with the lowest median streaming time. Use that one policy for every test group. Do not pick a winner inside each test QP."
+learned_method_status: L2WS_INSPIRED
+learned_method_note: "OSQP warm_start(x, y) is not the L2WS fixed-point state. Do not label an external network as the JMLR algorithm."
+
+classical_warm_start_effect: observed
+classical_warm_start_effect_note: >
+  The paired median is positive in each preflight group. MPC seed 2 is only
+  about 0.09 ms. MPC seed 1 is about 8 ms and the single Lasso group is about
+  9.5 ms. Do not quote the pooled MPC median as if both plants shared it.
+learned_headroom: untested
+nn_proxy_validity: INVALID_NUMERICAL_BLOWUP
+quality_certification: unresolved
+
+recommended_primary_family: mpc
+recommendation_reason: >
+  MPC stays primary because the charter names it and ControlExample draws an
+  independent plant per seed. The Lasso timing gap is not a reason to switch.
+  The classical previous-solution effect is a preflight observation. It does
+  not show that a learned initializer beats C2 or C3.
+exploratory_preflight:
+  run_id: "20261023T180721-813ad8cb"
+  osqp: "1.1.3"
+  policy_rows: 448
+  solves_used_including_reference: 510
+  reference_solves_absent_from_csv: 62
+  independent_groups: 3
+  timing_repeats_observed:
+    mpc: 2
+    lasso: 1
+  excluded_from_future_test_seeds:
+    mpc: [1, 2]
+    lasso: [1]
+  mpc_dim20_median_streaming_ms:
+    C1: 11.11
+    C2: 4.85
+    C3: 4.69
+  lasso_dim50_median_streaming_ms:
+    C1: 14.29
+    C2: 4.84
+    C3: 5.61
+  group_median_c1_minus_c2_ms: {"lasso/dim50/seed1": 9.4769, "mpc/dim20/seed1": 7.9944500000000005, "mpc/dim20/seed2": 0.09295}
+
+proposed_if_approved:
+  frozen: false
+  mpc_dimension: 20
+  horizon_steps: 25
+  horizon_note: "25 is the measured preflight horizon. Upstream allows 100. Steps 26-100 were not measured and need a separate approval."
+  note: "Do not increase dimension unless a later approval explicitly selects another size already listed by upstream (40, 60, 80)."
+  group_counts: {train: 12, val: 4, test: 8}
+  group_seed_pool: "101-124 inclusive, assigned by make_groups with seed 20261023. Not generated in this round."
+  split_seed: 20261023
+  training_seeds: [11, 23, 47]
+  eps_abs: 1.0e-4
+  eps_rel: 1.0e-4
+  adaptive_rho: false
+  polishing: false
+  rho: 0.1
+  timing_repeats: 10
+  timing_repeats_note: "Design target for technical replication. Not an independent sample size. Not yet used."
+  cluster_bootstrap_seed: 11
+  cluster_bootstrap_draws: 2000
+  failure_rule: "Keep every timeout, inaccurate solve, and infeasible row in the latency table."
+  quality_rule: "Unresolved. Do not treat the recorded quality_pass flag as matched quality."
+
+not_authorized:
+  - confirmatory test evaluation
+  - neural training
+  - L3 extension
+  - changing the primary endpoint after seeing test outcomes
+  - using preflight seeds 1 and 2 as untouched test groups
+  - creating protocol/frozen_protocol.yaml in the audit stage

@@ -1,0 +1,58 @@
+# Local environments and caches
+.venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+._*
+.ssh/
+*.pem
+.env
+
+# Data, run outputs, and third-party checkouts
+data/
+outputs/
+logs/
+results/
+artifacts/
+runtimes/
+dist/
+external/
+*.hdf5
+*.partial
+*.pt
+*.parquet
+*.npz
+*.zip
+*.rda
+*.pkl
+*.dta
+
+# Experiment dumps and vendored upstream trees
+experiments/**/outputs/
+experiments/**/attempts/
+experiments/**/_third_party/
+experiments/**/*.log
+experiments/**/*.pdf
+experiments/**/*.csv
+experiments/**/*.json
+experiments/**/*.txt
+!experiments/**/requirements*.txt
+
+# Research notes stay on the local machine
+docs/
+reports/
+uploads/
+student/
+student_notes/
+decisions/
+*.md
+!/README.md
+# Result figures stay local
+*.png
+*.jpg
+*.jpeg
+experiments/preflight/

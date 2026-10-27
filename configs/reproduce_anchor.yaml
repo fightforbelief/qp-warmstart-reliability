@@ -1,0 +1,13 @@
+# NOT a reproduction config. Documents the author target and the cap.
+status: not_a_training_run
+target_repo: external/l2ws
+target_sha: 14d59d03590ca9f34e8d6daa675002d8b4f1a769
+paper: "Sambharya, Hall, Amos, Stellato. JMLR 2024."
+selected_experiment: unconstrained_qp
+reason: >
+  benchmarks/configs/mpc/mpc_run.yaml in the cloned tree contains unresolved
+  merge conflict markers and cannot be parsed. unconstrained_qp is the smallest
+  valid checked-in config (n_orig 20, N_train 100). Its epochs field is 1e6.
+max_pilot_minutes: 30
+run_full_epochs: false
+neural_training_authorized: false

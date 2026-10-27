@@ -1,0 +1,38 @@
+max_total_solves: 1000
+order_seed: 20261023
+# Exploratory accuracy. Not a frozen confirmatory tolerance.
+primal_tol: 1.0e-3
+stationarity_tol: 1.0e-2
+osqp_settings:
+  verbose: false
+  warm_starting: true
+  polishing: false
+  adaptive_rho: false
+  scaling: 10
+  eps_abs: 1.0e-4
+  eps_rel: 1.0e-4
+  eps_prim_inf: 1.0e-4
+  eps_dual_inf: 1.0e-4
+  max_iter: 4000
+  rho: 0.1
+  sigma: 1.0e-6
+  alpha: 1.6
+reference_settings:
+  eps_abs: 1.0e-8
+  eps_rel: 1.0e-8
+  max_iter: 20000
+  adaptive_rho: false
+  polishing: false
+mpc:
+  # Smallest dimension in upstream run_parametric_problems.py. Not inflated.
+  dimension: 20
+  # seed 1 is ControlExample's default. seed 2 uses the existing constructor argument.
+  seeds: [1, 2]
+  n_steps: 25
+  repeats: 2
+lasso:
+  dimension: 50
+  seeds: [1]
+  n_steps: 12
+  repeats: 1
+neural_training: false
